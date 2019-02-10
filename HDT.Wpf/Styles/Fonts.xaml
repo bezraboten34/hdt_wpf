@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:HDT.Wpf.styles">
+
+    <FontFamily x:Key="LatoRegular">pack://application;,,,/Fonts/Lato/#Lato Regular</FontFamily>
+    <FontFamily x:Key="LatoThin">pack://application;,,,/Fonts/Lato/#Lato Thin</FontFamily>
+    <FontFamily x:Key="LatoLight">pack://application;,,,/Fonts/Lato/#Lato Light</FontFamily>
+    <FontFamily x:Key="LatoBold">pack://application;,,,/Fonts/Lato/#Lato Bold</FontFamily>
+    <FontFamily x:Key="LatoSemiBold">pack://application;,,,/Fonts/Lato/#Lato SemiBold</FontFamily>
+
+    <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
+        <Setter Property="FontFamily" Value="{StaticResource LatoLight}"/>
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="TextBlockBaseStyle">
+        <Setter Property="FontFamily" Value="{StaticResource LatoLight}"/>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}"/>
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}"/>
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}"/>
+    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource TextBlockBaseStyle}"/>
+    <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}"/>
+
+</ResourceDictionary>
