@@ -233,6 +233,9 @@ namespace HDT.Wpf
             var windowBottomRight = new Point(right * mMonitorDpi.Value.DpiScaleX, bottom * mMonitorDpi.Value.DpiScaleX);
 
             // Check for edges docked
+            //Debug.Print(mScreenSize.BottomRight.ToString());
+            Debug.Print((mWindow.WindowStyle.ToString()));
+
             var edgedTop = windowTopLeft.Y <= (mScreenSize.Top + mEdgeTolerance) && windowTopLeft.Y >= (mScreenSize.Top - mEdgeTolerance);
             var edgedLeft = windowTopLeft.X <= (mScreenSize.Left + mEdgeTolerance) && windowTopLeft.X >= (mScreenSize.Left - mEdgeTolerance);
             var edgedBottom = windowBottomRight.Y >= (mScreenSize.Bottom - mEdgeTolerance) && windowBottomRight.Y <= (mScreenSize.Bottom + mEdgeTolerance);
@@ -326,7 +329,7 @@ namespace HDT.Wpf
         private void WmGetMinMaxInfo(System.IntPtr hwnd, System.IntPtr lParam)
         {
             // Get the point position to determine what screen we are on
-            GetCursorPos(out POINT lMousePosition);
+            GetCursorPos(out var lMousePosition);
 
             // Now get the current screen
             var lCurrentScreen = mBeingMoved ?
@@ -396,7 +399,7 @@ namespace HDT.Wpf
                 // NOTE: rcMonitor is the monitor size
                 //       rcWork is the available screen size (so the area inside the task bar start menu for example)
 
-                // Size size limits (used by Windows when maximized)
+                // Size limits (used by Windows when maximized)
                 // relative to 0,0 being the current screens top-left corner
 
                 // Set to primary monitor size
@@ -419,8 +422,8 @@ namespace HDT.Wpf
 
             // Get margin around window
             CurrentMonitorMargin = new Thickness(
-                (lCurrentScreenInfo.RCMonitor.Left - lCurrentScreenInfo.RCWork.Left) / mMonitorDpi.Value.DpiScaleX,
-                (lCurrentScreenInfo.RCMonitor.Top - lCurrentScreenInfo.RCWork.Top) / mMonitorDpi.Value.DpiScaleY,
+                (lCurrentScreenInfo.RCWork.Left - lCurrentScreenInfo.RCMonitor.Left) / mMonitorDpi.Value.DpiScaleX,
+                (lCurrentScreenInfo.RCWork.Top - lCurrentScreenInfo.RCMonitor.Top) / mMonitorDpi.Value.DpiScaleY,
                 (lCurrentScreenInfo.RCMonitor.Right - lCurrentScreenInfo.RCWork.Right) / mMonitorDpi.Value.DpiScaleX,
                 (lCurrentScreenInfo.RCMonitor.Bottom - lCurrentScreenInfo.RCWork.Bottom) / mMonitorDpi.Value.DpiScaleY
                 );
@@ -436,7 +439,7 @@ namespace HDT.Wpf
         public Point GetCursorPosition()
         {
             // Get mouse position
-            GetCursorPos(out POINT lMousePosition);
+            GetCursorPos(out var lMousePosition);
 
             // Apply DPI scaling
             return new Point(lMousePosition.X / mMonitorDpi.Value.DpiScaleX, lMousePosition.Y / mMonitorDpi.Value.DpiScaleY);
@@ -445,7 +448,7 @@ namespace HDT.Wpf
 
     #region DLL Helper Structures
 
-    enum MonitorOptions : uint
+    public enum MonitorOptions : uint
     {
         MONITOR_DEFAULTTONULL = 0x00000000,
         MONITOR_DEFAULTTOPRIMARY = 0x00000001,

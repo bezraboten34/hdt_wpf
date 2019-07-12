@@ -61,7 +61,10 @@ namespace HDT.Wpf
         {
             get
             {
-                return (mWindow.WindowState == WindowState.Maximized || mDockPosition != WindowDockPosition.Undocked);
+                Debug.Print(mDockPosition.ToString());
+                Debug.Print(mWindow.WindowState.ToString());
+                //Debug.Print(((mWindow.WindowState == WindowState.Maximized) || (mDockPosition != WindowDockPosition.Undocked)).ToString());
+                return (mWindow.WindowState == WindowState.Maximized) || (mDockPosition != WindowDockPosition.Undocked);
             }
         }
 
@@ -161,11 +164,8 @@ namespace HDT.Wpf
         public WindowViewModel(Window window)
         {
             mWindow = window;
-
-            mWindow.StateChanged += (sender, e) =>
-            {
-                WindowResized();
-            };
+                            
+            mWindow.StateChanged += (sender, e) => WindowResized();
 
             // Creating the title bar commands
             MinimizeCommand = new RelayCommand(() => mWindow.WindowState = WindowState.Minimized);
